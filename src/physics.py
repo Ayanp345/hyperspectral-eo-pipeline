@@ -1,27 +1,3 @@
-"""
-src/physics.py
------------------
-Small shared radiative-transfer building blocks used by BOTH:
-  - the forward simulator (`src/data/synthetic_hsi.py`, reflectance -> radiance)
-  - the inverse atmospheric correction (`src/preprocessing/atmospheric.py`,
-    radiance -> reflectance)
-
-This mirrors how real atmospheric correction actually works: the top-of-
-atmosphere solar irradiance spectrum is a well-measured, *known* physical
-quantity (published reference spectra like Thuillier 2003 / ChKur are simply
-looked up, not solved for). What a real atmospheric correction algorithm
-(e.g. Pixxel's piSOFIT/ISOFIT) actually estimates is the *unknown* atmospheric
-state -- water vapor, aerosol optical depth, and the resulting path radiance
-and gas transmittance -- via an optimal-estimation inversion against a
-radiative-transfer lookup table (MODTRAN/6S).
-
-Keeping the solar irradiance model here as a single shared function is the
-honest way to reflect that division of labor in this simplified educational
-pipeline: the simulator and the corrector agree on the "known" solar physics,
-while the correction module (`atmospheric.py`) still has to *estimate* the
-unknown additive path-radiance term itself (via Dark Object Subtraction) --
-it is not simply handed the answer.
-"""
 from __future__ import annotations
 
 import numpy as np
