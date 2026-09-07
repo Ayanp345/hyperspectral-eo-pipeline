@@ -1,11 +1,3 @@
-# =============================================================================
-# pixxel-hsi-cv :: central configuration
-# =============================================================================
-# Every module reads its parameters from here (via src/utils_config.py) so the
-# whole pipeline can be re-run with different sensor modes / scene sizes /
-# model hyperparameters without touching code.
-# =============================================================================
-
 sensor:
   # "firefly"  -> VNIR only,  135-161 bands, 470-900 nm   (Pixxel's operational
   #               commercial constellation, 5.4 m GSD, 40 km swath)
