@@ -1,0 +1,86 @@
+# =============================================================================
+# pixxel-hsi-cv :: central configuration
+# =============================================================================
+# Every module reads its parameters from here (via src/utils_config.py) so the
+# whole pipeline can be re-run with different sensor modes / scene sizes /
+# model hyperparameters without touching code.
+# =============================================================================
+
+sensor:
+  # "firefly"  -> VNIR only,  135-161 bands, 470-900 nm   (Pixxel's operational
+  #               commercial constellation, 5.4 m GSD, 40 km swath)
+  # "honeybee" -> VNIR + SWIR, ~160 + ~100 bands, 470-2500 nm (Pixxel's next-gen
+  #               constellation, 5 m GSD, 30 km VNIR / 10 km SWIR swath)
+  mode: honeybee
+  vnir_bands: 160
+  vnir_range_nm: [470, 900]
+  swir_bands: 100
+  swir_range_nm: [900, 2500]
+  gsd_m: 5.0
+  bit_depth: 12          # ADC quantization depth simulated for raw DN
+
+scene:
+  height: 128
+  width: 128
+  seed: 42
+  snr_db: 32             # sensor SNR used to derive additive Gaussian noise
+  add_shot_noise: true
+  add_smile_effect: true # simulate spectral "smile" mis-registration
+  sun_zenith_deg: 25.0   # illumination geometry, assumed known (as in real EO metadata)
+  inject_methane_plume: true
+  plume_center: [80, 40]
+  plume_radius: 10
+  plume_peak_enhancement_ppm_m: 4000   # illustrative column-enhancement peak
+
+preprocessing:
+  dark_object_percentile: 0.5   # for simplified DOS atmospheric correction
+  pca_variance_target: 0.995
+  mnf_noise_estimation: "shift-difference"   # local spatial-shift noise estimate
+
+classical:
+  sam_threshold_deg: 8.0
+  rx_anomaly_percentile: 99.0
+  matched_filter_gas: "CH4"
+  methane_detection_percentile: 90.0
+
+ml_baseline:
+  n_estimators: 300
+  max_depth: 20
+  test_size: 0.3
+  use_spatial_features: true
+  spatial_window: 5
+
+deep_learning:
+  patch_size: 9
+  pca_components: 30
+  batch_size: 64
+  epochs: 40
+  lr: 0.001
+  weight_decay: 0.0005
+  early_stopping_patience: 8
+  train_ratio: 0.6
+  val_ratio: 0.15
+  transformer:
+    embed_dim: 64
+    depth: 4
+    num_heads: 4
+    mlp_ratio: 2.0
+    dropout: 0.1
+    spectral_group_size: 10
+
+applications:
+  vegetation:
+    red_nm: 670
+    red_edge_nm: [705, 750]
+    nir_nm: 860
+  minerals:
+    iron_oxide_center_nm: 900
+    clay_center_nm: 2200
+  water:
+    blue_nm: 480
+    green_nm: 560
+    red_nm: 660
+
+output:
+  figures_dir: outputs/figures
+  metrics_dir: outputs/metrics
