@@ -1,20 +1,3 @@
-"""
-src/classical/anomaly.py
---------------------------
-Reed-Xiaoli (RX) anomaly detector (Reed & Yu, 1990) -- the classical
-benchmark algorithm for hyperspectral anomaly detection, still the standard
-baseline compared against in nearly every modern (deep-learning) HSI anomaly
-detection paper. It flags pixels whose spectrum is statistically unusual
-relative to the scene's overall spectral distribution, *without* needing any
-labeled training data -- exactly the operating mode needed for a satellite
-operator scanning for "something unexpected" anywhere on Earth (illegal
-mining/dumping, unplanned deforestation, novel materials, etc.).
-
-RX score for pixel x:
-    RX(x) = (x - mu)^T * Sigma^-1 * (x - mu)
-which is the squared Mahalanobis distance from the scene mean, using the
-scene's full-band covariance Sigma.
-"""
 from __future__ import annotations
 
 from typing import Tuple
