@@ -1,10 +1,3 @@
-"""
-src/visualization/viz.py
----------------------------
-All figure-generation for the pipeline lives here, using a non-interactive
-matplotlib backend so it runs headless in any environment (CI, container,
-etc.) and simply saves PNG files.
-"""
 from __future__ import annotations
 
 import os
