@@ -1,25 +1,3 @@
-"""
-src/dl/dataset.py
---------------------
-Spectral-spatial patch dataset for hyperspectral classification -- the
-standard input representation used by essentially every deep HSI
-classification paper (HybridSN, SpectralFormer, SSRN, etc.): rather than
-classifying one pixel from its spectrum alone, a small spatial neighborhood
-(`patch_size` x `patch_size`) around each labeled pixel is extracted, giving
-the network local spatial context (texture, edges) alongside the full
-spectral signature.
-
-Pipeline:
-    1. PCA-reduce the corrected reflectance cube to `pca_components` bands
-       (deep spectral-spatial nets are normally run on a PCA-reduced cube --
-       this is exactly what the original HybridSN paper does -- both to
-       control the 3D-conv parameter count and to denoise).
-    2. Pad the cube by patch_size // 2 on each spatial side (reflect padding)
-       so every pixel, including scene edges, can form a full patch.
-    3. For every labeled pixel, extract a (patch_size, patch_size,
-       pca_components) cube -> reshaped to (1, pca_components, patch_size,
-       patch_size) for a 3D-CNN, ready to feed HybridSN directly.
-"""
 from __future__ import annotations
 
 from typing import Tuple
