@@ -1,34 +1,3 @@
-"""
-src/dl/hybridsn.py
----------------------
-HybridSN -- Roy, S. K., Krishna, G., Dubey, S. R., & Chaudhuri, B. B. (2020).
-"HybridSN: Exploring 3-D-2-D CNN Feature Hierarchy for Hyperspectral Image
-Classification." IEEE Geoscience and Remote Sensing Letters, 17(2), 277-281.
-
-Architecture rationale (why 3D *and* 2D convolutions):
-    A pure 2D-CNN over a PCA-reduced HSI patch treats all spectral bands as
-    independent input "channels" the same way an RGB image treats R/G/B --
-    which throws away the fact that neighboring spectral bands are strongly
-    physically correlated (they sample the same underlying continuous
-    reflectance curve). A pure 3D-CNN over the *raw* cube instead treats
-    space and spectrum symmetrically, but is computationally heavy and can't
-    easily learn the purely-spatial (texture/edge) patterns a 2D-CNN excels
-    at once the spectral dimension has already been compressed.
-
-    HybridSN's hybrid design gets both: a stack of 3D convolutions first
-    jointly model *local spectral-spatial* structure (small kernels sliding
-    over wavelength AND space together), progressively collapsing the
-    spectral dimension; the result is then reshaped and fed through a 2D
-    convolution that models pure spatial pattern over the now-compact
-    joint spectral-spatial feature maps, before a small MLP head classifies
-    the patch's center pixel.
-
-This implementation determines the flatten dimension between the 3D-conv
-stack and the 2D-conv stage empirically via a single dummy forward pass at
-construction time, so it works correctly for *any* (patch_size,
-pca_components) configuration in `configs/config.yaml`, not just the exact
-values used in the original paper (patch=25, bands=30).
-"""
 from __future__ import annotations
 
 import torch
