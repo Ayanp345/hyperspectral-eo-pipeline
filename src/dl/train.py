@@ -1,24 +1,3 @@
-"""
-src/dl/train.py
-------------------
-Shared training/evaluation loop for both deep models (`HybridSN` and
-`SpectralSpatialTransformer`) -- they expose an identical
-(batch, 1, C, patch, patch) -> (batch, num_classes) interface, so one loop
-drives either architecture via the `model_name` switch.
-
-Protocol (matches standard HSI classification benchmark practice):
-    1. PCA-reduce the corrected reflectance cube to a fixed number of
-       components (deep spectral-spatial nets are trained on PCA-reduced
-       cubes, not the full band count -- see `src/dl/dataset.py`).
-    2. Stratified per-class pixel split into train/val/test.
-    3. Train with Adam + weight decay, monitoring validation loss for early
-       stopping (patience from config) to avoid overfitting the (small,
-       synthetic) label set.
-    4. Evaluate on the held-out test split with the same OA/AA/Kappa metrics
-       used everywhere else in this project, and additionally predict the
-       *entire* scene (every pixel, not just labeled/test ones) to render a
-       full classification-map figure.
-"""
 from __future__ import annotations
 
 import os
