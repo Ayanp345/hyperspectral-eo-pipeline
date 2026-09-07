@@ -1,19 +1,3 @@
-"""
-src/evaluation/metrics.py
-----------------------------
-Standard metrics used throughout the hyperspectral-image-classification
-literature (Indian Pines / Pavia University / Houston benchmark papers all
-report exactly these three numbers):
-
-- OA  (Overall Accuracy)   : fraction of all test pixels correctly classified.
-- AA  (Average Accuracy)   : mean of the per-class recall -- unlike OA, this
-                              is not dominated by whichever class has the most
-                              pixels, so it exposes poor performance on rare
-                              classes (e.g. a small mineral outcrop) that OA
-                              alone would hide.
-- Kappa (Cohen's Kappa)    : agreement between prediction and ground truth,
-                              corrected for the agreement expected by chance.
-"""
 from __future__ import annotations
 
 from typing import Dict
