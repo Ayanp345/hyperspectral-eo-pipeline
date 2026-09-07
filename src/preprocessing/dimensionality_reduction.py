@@ -1,31 +1,3 @@
-"""
-src/preprocessing/dimensionality_reduction.py
-------------------------------------------------
-Stage 3 of the processing chain: hundreds of narrow, highly-correlated
-spectral bands -> a compact, information-dense feature space.
-
-Implements, from scratch (numpy/scipy only, no scikit-learn dependency so the
-math is fully transparent):
-
-1. PCA (Principal Component Analysis) via SVD -- orders components by
-   *variance*.
-2. MNF (Minimum Noise Fraction, Green et al., 1988) -- orders components by
-   *signal-to-noise ratio* instead of raw variance, which is the transform
-   real hyperspectral / imaging-spectroscopy pipelines generally prefer,
-   because a high-variance band is not necessarily a high-information band if
-   most of that variance is sensor noise. MNF is the standard technique used
-   ahead of spectral unmixing and target/anomaly detection in operational
-   imaging-spectrometer processing chains.
-
-MNF algorithm:
-    a. Estimate the *noise* covariance Σ_n via the shift-difference method:
-       noise is approximated as the pixel-to-pixel spatial difference of the
-       image (real ground signal is spatially correlated over a few pixels;
-       independent sensor noise is not), so Cov(X - shift(X)) ≈ 2·Σ_n.
-    b. Noise-whiten the data: W = U_n Λ_n^(-1/2), where Σ_n = U_n Λ_n U_n^T.
-    c. PCA the noise-whitened data -> components are now ranked by
-       decreasing signal-to-noise ratio.
-"""
 from __future__ import annotations
 
 from typing import Tuple
