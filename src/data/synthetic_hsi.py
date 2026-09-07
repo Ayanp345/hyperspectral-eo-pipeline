@@ -1,38 +1,3 @@
-"""
-src/data/synthetic_hsi.py
---------------------------
-Generates a synthetic, physically-motivated hyperspectral scene that mimics
-the *structure* of Pixxel's real data products (band count / wavelength
-coverage of the Firefly and Honeybee constellations, raw-DN quantization,
-sensor noise, spectral "smile", and a SWIR trace-gas plume) so the rest of
-the pipeline (preprocessing -> classical spectral analysis -> ML/DL
-classification -> application products) has something concrete and
-reproducible to run on, end to end, with zero external downloads.
-
-Why synthetic data, and not a real Pixxel scene?
-    Pixxel's raw/calibrated imagery is proprietary tasked data delivered to
-    paying customers through their API/Aurora platform; it is not a public
-    dataset. Using a physics-based simulator that reproduces Firefly/Honeybee's
-    real sensor characteristics (band count, spectral range, GSD, noise, SWIR
-    gas-absorption physics) lets every stage of this project be demonstrated,
-    tested and graded end-to-end without needing access to that data. Swap in
-    real tasked imagery (or a public HSI benchmark such as Indian Pines /
-    Pavia University / Houston 2018) by writing a loader that returns the same
-    `HyperspectralScene` structure -- see `src/data/real_data_loader.py`.
-
-Ground truth returned alongside the cube:
-    - `label_map`      : hard per-pixel class id (argmax abundance) — used for
-                          classification (ML/DL) benchmarking.
-    - `abundance_maps` : per-pixel fractional class membership summing to 1 —
-                          used as ground truth for the spectral-unmixing demo.
-    - `plume_mask` / `plume_concentration_ppm_m` : synthetic methane plume
-                          ground truth — used for the matched-filter /
-                          gas-detection demo (only physically detectable in
-                          "honeybee" SWIR mode; correctly *invisible* in
-                          "firefly" VNIR-only mode, which is itself a useful,
-                          realistic teaching point about *why* Pixxel built a
-                          second, SWIR-capable constellation).
-"""
 from __future__ import annotations
 
 from dataclasses import dataclass
