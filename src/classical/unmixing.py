@@ -1,23 +1,3 @@
-"""
-src/classical/unmixing.py
----------------------------
-Linear spectral unmixing under the Linear Mixing Model (LMM):
-
-    pixel_spectrum ≈ sum_k( abundance_k * endmember_k )   s.t.  sum_k abundance_k = 1,  abundance_k >= 0
-
-This is the same generative model `src/data/synthetic_hsi.py` used to build
-the scene, so unmixing recovers the ground-truth per-pixel class abundances
-(sub-pixel composition) -- the hyperspectral capability that is impossible
-with ordinary RGB/multispectral imagery and is one of the main reasons
-Pixxel's customers (agriculture, mining) want *hyperspectral*, not just
-higher-resolution, imagery: two adjacent 5 m pixels of "90% healthy crop /
-10% soil" and "60% healthy crop / 40% stressed crop" look identical in RGB
-but are spectrally distinguishable.
-
-We solve the Fully Constrained Least Squares (FCLS) problem approximately via
-non-negative least squares (NNLS) followed by renormalization -- a standard,
-fast approximation to full FCLS used widely in practice.
-"""
 from __future__ import annotations
 
 import numpy as np
