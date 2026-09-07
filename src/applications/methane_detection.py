@@ -1,21 +1,3 @@
-"""
-src/applications/methane_detection.py
------------------------------------------
-Wraps the matched-filter classical algorithm (`src/classical/matched_filter.py`)
-into a full "point-source methane plume detection" application, matching the
-environmental-monitoring use case Pixxel's SWIR-capable Honeybee constellation
-targets (the same category of product as EMIT / GHGSat / AVIRIS-NG methane
-point-source alerts).
-
-Includes a simple linear proxy that maps matched-filter score to an
-illustrative ppm·m column-enhancement estimate, calibrated against the known
-peak concentration injected by the synthetic scene generator. This is an
-*illustrative* regression for demonstration purposes only -- a real
-operational retrieval requires a radiative-transfer-based unit absorption
-spectrum and careful albedo/surface correction (as done in the published
-matched-filter methane literature); it should not be read as a
-radiometrically validated retrieval.
-"""
 from __future__ import annotations
 
 from typing import Dict, Optional, Tuple
