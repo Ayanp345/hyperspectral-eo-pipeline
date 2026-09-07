@@ -1,31 +1,3 @@
-"""
-src/applications/mineral_mapping.py
---------------------------------------
-Mineral / lithology mapping via continuum removal (Clark & Roush, 1984) --
-the standard technique in imaging-spectroscopy mineral exploration (the same
-family of methods used by AVIRIS/PRISMA/EnMAP mineral-mapping products, and
-directly relevant to Pixxel's stated mining-exploration use case).
-
-Continuum removal isolates a diagnostic absorption feature by:
-  1. fitting a "continuum" -- the convex hull / straight line connecting the
-     local reflectance maxima on either side of the absorption feature;
-  2. dividing the observed spectrum by that continuum, so the featureless
-     background reflectance becomes ~1.0 everywhere and only the absorption
-     dip remains visible;
-  3. the *depth* of that normalized dip (1 - min) is a mineral-abundance-
-     correlated index that is far more diagnostic than a raw two-band ratio,
-     because it is normalized against the local (possibly sloped, mineral-
-     dependent) background reflectance.
-
-Two features are mapped, matching the endmembers in
-`src/data/spectral_library.py`:
-    - Iron-oxide charge-transfer absorption near 900 nm (VNIR -- visible on
-      *both* Firefly and Honeybee).
-    - Al-OH clay-mineral doublet absorption near 2200 nm (SWIR-only --
-      visible *only* in Honeybee mode; deliberately returns all-zero on
-      Firefly, which is itself an instructive result about why SWIR
-      coverage matters for exploration geology).
-"""
 from __future__ import annotations
 
 from typing import Tuple
