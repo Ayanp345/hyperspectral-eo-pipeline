@@ -1,18 +1,3 @@
-"""
-tests/test_pipeline.py
---------------------------
-Automated sanity tests for the pipeline. Run with:
-
-    pytest tests/ -v
-
-or, without pytest installed:
-
-    python tests/test_pipeline.py
-
-Deep-learning tests are automatically skipped (not failed) if PyTorch is not
-installed in the current environment -- every other stage is pure
-numpy/scipy/sklearn and is expected to always run.
-"""
 from __future__ import annotations
 
 import os
