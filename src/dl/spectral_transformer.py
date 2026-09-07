@@ -1,36 +1,3 @@
-"""
-src/dl/spectral_transformer.py
-----------------------------------
-A Spectral-Spatial Transformer for hyperspectral patch classification,
-architecturally inspired by SpectralFormer (Hong, D. et al., 2021,
-"SpectralFormer: Rethinking Hyperspectral Image Classification with
-Transformers," IEEE TGRS) -- the first major transformer architecture
-purpose-built for hyperspectral data, motivated by the same reasoning
-DETR/ViT brought to natural images: self-attention can model long-range
-dependencies between spectral bands (or spatial positions) that local CNN
-kernels only reach after many stacked layers.
-
-Design here:
-    1. The spectral dimension (PCA-reduced bands) is split into contiguous
-       "spectral groups" of `spectral_group_size` neighboring bands each --
-       analogous to how SpectralFormer groups neighboring bands into tokens
-       rather than treating every single band as its own token (which would
-       make the sequence length equal to the (often large) band count and
-       waste attention on near-duplicate adjacent bands).
-    2. Each group's small spatial patch across those bands is flattened and
-       linearly projected into an embedding -- this is the "tokenization"
-       step, directly analogous to ViT's patch embedding, but grouping along
-       the *spectral* axis instead of splitting a large image into spatial
-       patches.
-    3. A learnable [CLS] token + learnable positional embeddings (since
-       *spectral order* is physically meaningful, unlike a bag of words) are
-       prepended, then a standard pre-norm Transformer encoder
-       (multi-head self-attention + MLP blocks) lets every spectral group
-       attend to every other one -- e.g. letting a red-edge-region token
-       directly attend to a SWIR clay-absorption token, something a small
-       CNN kernel could not do without many layers of receptive-field growth.
-    4. The [CLS] token's final representation is classified by a linear head.
-"""
 from __future__ import annotations
 
 import math
