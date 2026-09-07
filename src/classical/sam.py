@@ -1,14 +1,3 @@
-"""
-src/classical/sam.py
-----------------------
-Spectral Angle Mapper (SAM) -- Kruse et al. (1993).
-
-SAM treats each pixel spectrum and each reference (endmember) spectrum as a
-vector in B-dimensional space and classifies by the smallest angle between
-them, which makes it invariant to multiplicative illumination/albedo scaling
--- a useful property for a physically-motivated first-pass classifier before
-resorting to a trained model.
-"""
 from __future__ import annotations
 
 from typing import Tuple
