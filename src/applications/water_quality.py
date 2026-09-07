@@ -1,24 +1,3 @@
-"""
-src/applications/water_quality.py
--------------------------------------
-Simple, standard band-ratio water-quality proxy indices -- another of
-Pixxel's stated application areas. Both indices below are widely published,
-simplified forms used throughout the ocean/inland-water remote sensing
-literature; they are illustrative proxies, not calibrated concentration
-retrievals (real turbidity/chlorophyll-a retrievals require in-situ
-calibration against water samples).
-
-- Normalized Difference Turbidity-proxy Index (NDTI-like):
-      NDTI = (R_red - R_green) / (R_red + R_green)
-  Suspended sediment raises red-band reflectance relative to green, so higher
-  NDTI ~ higher turbidity.
-
-- Blue/Green ratio chlorophyll proxy (OC-type):
-      chl_proxy = R_blue / R_green
-  Clear, low-chlorophyll water reflects relatively more blue light; as algal
-  chlorophyll increases, blue absorption increases and green reflectance
-  rises relative to blue, lowering this ratio.
-"""
 from __future__ import annotations
 
 import numpy as np
