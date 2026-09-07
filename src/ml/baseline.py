@@ -1,16 +1,3 @@
-"""
-src/ml/baseline.py
----------------------
-A spectral-spatial machine-learning baseline classifier: PCA-reduced spectral
-features augmented with simple local spatial texture statistics (mean +
-std-dev in a sliding window per PCA band), fed into a Random Forest.
-
-This kind of "hand-engineered spectral-spatial feature + ensemble classifier"
-pipeline is the standard, strong, *fast-to-train* baseline that any deep
-hyperspectral classification paper (including the HybridSN / SpectralFormer
-papers implemented in `src/dl/`) is expected to beat -- so it also acts as
-this project's sanity-check / lower-bound reference.
-"""
 from __future__ import annotations
 
 from typing import Dict, Tuple
