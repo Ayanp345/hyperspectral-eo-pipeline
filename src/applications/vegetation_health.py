@@ -1,26 +1,3 @@
-"""
-src/applications/vegetation_health.py
-----------------------------------------
-Crop / vegetation health mapping -- one of Pixxel's headline agriculture use
-cases. This is exactly the kind of application hyperspectral (vs. ordinary
-multispectral/RGB) imagery meaningfully improves, because a fine spectral
-sampling of the 700-750 nm "red edge" lets you *localize* the inflection
-point of the chlorophyll absorption edge rather than just sampling one or two
-broad bands.
-
-Implements two standard, published vegetation indices:
-
-1. A pseudo-NDVI using a red band and a VNIR-NIR band (available even on
-   Firefly's VNIR-only 470-900 nm range):
-        NDVI = (R_nir - R_red) / (R_nir + R_red)
-
-2. The Red-Edge Position / Red-Edge Inflection Point (REP), via the classic
-   four-point linear interpolation method of Guyot & Baret (1988):
-        REP = 700 + 40 * ( (R670 + R780)/2 - R700 ) / (R740 - R700)
-   REP shifts toward shorter wavelengths ("blue shift") under physiological
-   stress before visible symptoms appear -- the whole reason fine-resolution
-   red-edge sampling is valuable for early stress detection.
-"""
 from __future__ import annotations
 
 from typing import Tuple
