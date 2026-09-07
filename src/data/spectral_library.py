@@ -1,38 +1,3 @@
-"""
-src/data/spectral_library.py
------------------------------
-A small, physically-motivated spectral reflectance library used to drive the
-synthetic hyperspectral scene generator.
-
-Every material is built as a smooth "continuum" reflectance curve with one or
-more Gaussian *absorption features* subtracted from it. This is the same
-structural model real imaging-spectroscopy scientists use to *describe*
-mineral/vegetation spectra (continuum + absorption features), even though the
-exact curves here are illustrative, not laboratory-measured (e.g. USGS
-splib07 / ECOSTRESS) reflectance spectra.
-
-Wavelength-diagnostic features encoded here (all standard, widely published
-remote-sensing facts):
-
-- Vegetation:  chlorophyll absorption ~670 nm, a steep "red edge" rise between
-  ~700-750 nm, and a high NIR plateau ~760-900 nm (leaf cell structure
-  scattering). Canopy/leaf stress flattens the red edge and lowers the NIR
-  plateau -- this is the physiological basis for crop-stress remote sensing.
-- Iron oxides (e.g. hematite/goethite-bearing soils): a broad ferric-iron
-  charge-transfer absorption centered near 900 nm.
-- Clay minerals (e.g. kaolinite/illite-like phyllosilicates): an Al-OH
-  absorption doublet near 2160-2220 nm (only resolvable with SWIR bands,
-  i.e. Pixxel's Honeybee constellation, not VNIR-only Firefly).
-- Water: reflectance increases blue->green then drops steeply through
-  NIR/SWIR due to strong liquid-water absorption.
-- Methane (CH4): a narrow absorption band near 2298-2312 nm in the SWIR,
-  which is the actual spectral region real hyperspectral/imaging-spectrometer
-  methane point-source detection algorithms (matched filters) target.
-
-None of this is dual-use or sensitive: it mirrors publicly published remote
-sensing science used for agriculture, mining exploration, and greenhouse-gas
-monitoring.
-"""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
